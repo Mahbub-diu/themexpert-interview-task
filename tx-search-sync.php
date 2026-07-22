@@ -16,11 +16,16 @@
 
 defined('ABSPATH') || exit;
 
-require_once plugin_dir_path(__FILE__) . 'includes/post-type.php';
+require_once plugin_dir_path(__FILE__) . 'includes/PostType.php';
+
+require_once plugin_dir_path(__FILE__) . 'includes/SyncService.php';
+
+
+
 
 new ThemeXpert_Search_Sync_Post_Type();
 
-
+new ThemeXpert_Search_Sync();
 
 register_activation_hook(__FILE__, function () {
 
