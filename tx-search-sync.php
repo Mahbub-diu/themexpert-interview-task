@@ -32,16 +32,10 @@ require_once plugin_dir_path(__FILE__) . 'includes/Queue.php';
 require_once plugin_dir_path(__FILE__) . '/includes/ApiClient.php';
 
 require_once plugin_dir_path(__FILE__) . 'includes/WebhookController.php';
+require_once plugin_dir_path(__FILE__) . 'includes/Plugin.php';
 
-new ThemeXpert_Search_Sync_Post_Type();
-
-$queue = new Queue();
-
-new ThemeXpert_Search_Sync($queue);
-
-new WebhookController($queue);
-
-
+$plugin = new Plugin();
+$plugin->init();
 
 register_activation_hook(__FILE__, function () {
 
