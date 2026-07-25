@@ -31,13 +31,15 @@ require_once plugin_dir_path(__FILE__) . 'includes/Queue.php';
 
 require_once plugin_dir_path(__FILE__) . '/includes/ApiClient.php';
 
+require_once plugin_dir_path(__FILE__) . 'includes/WebhookController.php';
+
 new ThemeXpert_Search_Sync_Post_Type();
 
 $queue = new Queue();
 
 new ThemeXpert_Search_Sync($queue);
 
-
+new WebhookController($queue);
 
 
 

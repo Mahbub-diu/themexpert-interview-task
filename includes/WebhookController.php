@@ -34,6 +34,13 @@ class WebhookController
         $raw_body = $request->get_body();
         $signature = $request->get_header('X-Signature-Hash');
 
+        if (empty($signature)) {
+            return new WP_REST_Response(
+                ['message' => 'Missing signature'],
+                401
+            );
+        }
+
         if (!$this->verifySignature($raw_body, $signature)) {
 
             return new WP_REST_Response(
@@ -54,7 +61,7 @@ class WebhookController
         switch ($payload['action']) {
             case 'delete_indexed_post':
 
-                error_log('Webhook recieved :' . print_r($payload, true));
+                error_log('Webhook received: ' . print_r($payload, true));
 
                 $this->queue->enqueueDelete(
                     (int) $payload['post_id']

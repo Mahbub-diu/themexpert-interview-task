@@ -7,7 +7,10 @@ class ThemeXpert_Search_Sync
     public function __construct(Queue $queue)
     {
         $this->queue = $queue;
+
         add_action('save_post_docs', [$this, 'sync_doc'], 10, 3);
+
+        add_action('before_delete_post', [$this, 'deleteDoc']);
     }
 
     public function sync_doc($post_id, $post, $update)
@@ -38,5 +41,16 @@ class ThemeXpert_Search_Sync
             'clean_content' => wp_strip_all_tags(strip_shortcodes($post->post_content)),
             'author_name'   => get_the_author_meta('display_name', $post->post_author),
         ];
+    }
+
+    public function deleteDoc($postId): void
+    {
+        $post = get_post($postId);
+
+        if (!$post || $post->post_type !== 'docs') {
+            return;
+        }
+
+        $this->queue->enqueueDelete($postId);
     }
 }
