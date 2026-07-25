@@ -16,16 +16,29 @@
 
 defined('ABSPATH') || exit;
 
+if (file_exists(__DIR__ . '/vendor/action-scheduler/action-scheduler.php')) {
+    require_once __DIR__ . '/vendor/action-scheduler/action-scheduler.php';
+}
+
+
+
+
 require_once plugin_dir_path(__FILE__) . 'includes/PostType.php';
 
 require_once plugin_dir_path(__FILE__) . 'includes/SyncService.php';
 
-
+require_once plugin_dir_path(__FILE__) . 'includes/Queue.php';
 
 
 new ThemeXpert_Search_Sync_Post_Type();
 
-new ThemeXpert_Search_Sync();
+$queue = new Queue();
+
+new ThemeXpert_Search_Sync($queue);
+
+
+
+
 
 register_activation_hook(__FILE__, function () {
 

@@ -2,8 +2,11 @@
 
 class ThemeXpert_Search_Sync
 {
-    public function __construct()
+    private $queue;
+
+    public function __construct(Queue $queue)
     {
+        $this->queue = $queue;
         add_action('save_post_docs', [$this, 'sync_doc'], 10, 3);
     }
 
@@ -11,8 +14,13 @@ class ThemeXpert_Search_Sync
     {
         $document = $this->prepare_document($post_id);
 
-        // For testing
-        error_log(print_r($document, true));
+        if (empty($document)) {
+            return;
+        }
+
+        $this->queue->enqueueSync($document);
+
+        // error_log(print_r($document, true));
     }
 
 
