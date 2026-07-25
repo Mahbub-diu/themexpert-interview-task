@@ -29,6 +29,7 @@ require_once plugin_dir_path(__FILE__) . 'includes/SyncService.php';
 
 require_once plugin_dir_path(__FILE__) . 'includes/Queue.php';
 
+require_once plugin_dir_path(__FILE__) . '/includes/ApiClient.php';
 
 new ThemeXpert_Search_Sync_Post_Type();
 

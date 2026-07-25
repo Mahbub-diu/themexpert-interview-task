@@ -17,10 +17,9 @@ class ThemeXpert_Search_Sync
         if (empty($document)) {
             return;
         }
+        // error_log(print_r($document, true));
 
         $this->queue->enqueueSync($document);
-
-        // error_log(print_r($document, true));
     }
 
 

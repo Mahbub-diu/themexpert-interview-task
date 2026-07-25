@@ -32,11 +32,8 @@ class Queue
 
     public function processSync(array $args): void
     {
-        // error_log('Background job started');
-        // error_log(print_r($args, true));
-
-
         $client = new ApiClient();
-        $client->indexDocument($args['document']);
+
+        $client->indexDocument($args);
     }
 }
